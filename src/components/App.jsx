@@ -5,7 +5,6 @@ import Loading from "../common/Loading";
 import NotFound from "../components/NotFound";
 import routers from "../router/router";
 import history from '../router/history';
-import DevTools from 'mobx-react-devtools'
 import "../styles/app.scss";
 
 @inject("appStore")
@@ -13,19 +12,16 @@ import "../styles/app.scss";
 class App extends Component {
   //开发环境添加 调试工具
   renderDevTool() {
-    // if (process.env.NODE_ENV !== "production") {
-    //   const DevTools = require("mobx-react-devtools").default;
-    //   return <DevTools />;
-    // }
-    // return <DevTools />;
+    if (process.env.NODE_ENV !== "production") {
+      const DevTools = require("mobx-react-devtools").default;
+      return <DevTools />;
+    }
   }
   render() {
     const {error,isLoading} =this.props.appStore
     return (
       <React.Fragment>
-        <NotFound/>
-        <DevTools/>
-         {/* <Router history={history}>
+         <Router history={history}>
             <Switch>
               {routers.map((route, i) => {
                 return (
@@ -39,9 +35,9 @@ class App extends Component {
               })}
               <Route component={NotFound} />
             </Switch>
-        </Router> */}
+        </Router>
         {isLoading && <Loading/>}
-        
+        {this.renderDevTool()}
       </React.Fragment>
     );
   }
