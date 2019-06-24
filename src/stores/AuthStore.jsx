@@ -1,5 +1,4 @@
 import { observable, computed, action } from "mobx";
-import appStore from './AppStore'
 
 class AuthStore {
   api;

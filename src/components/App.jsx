@@ -5,6 +5,9 @@ import Loading from "../common/Loading";
 import NotFound from "../components/NotFound";
 import routers from "../router/router";
 import history from '../router/history';
+import Home from '../components/Home';
+import About from '../components/About';
+import Login from '../components/Login';
 import "../styles/app.scss";
 
 @inject("appStore")
@@ -18,22 +21,16 @@ class App extends Component {
     }
   }
   render() {
-    const {error,isLoading} =this.props.appStore
+    const {isLoading} =this.props.appStore
     return (
       <React.Fragment>
          <Router history={history}>
             <Switch>
-              {routers.map((route, i) => {
-                return (
-                  <Route
-                    key={i}
-                    exact
-                    path={route.path}
-                    component={route.component}
-                  />
-                );
-              })}
-              <Route component={NotFound} />
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/about" component={About} />
+            <Route path="/posts" component={Home} />
+            <Route component={NotFound} />
             </Switch>
         </Router>
         {isLoading && <Loading/>}
